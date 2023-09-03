@@ -2,21 +2,25 @@ plugins {
     id 'java'
     id "com.github.node-gradle.node" version "5.0.0"
     id "io.freefair.lombok" version "8.0.1"
-    id "run.halo.plugin.devtools" version "0.0.4"
+    id "run.halo.plugin.devtools" version "0.0.5"
 }
 
 group 'run.halo.starter'
 sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
-    mavenCentral()
     maven { url 'https://s01.oss.sonatype.org/content/repositories/releases' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://repo.spring.io/milestone' }
+    mavenCentral()
 }
 
 dependencies {
-    implementation platform('run.halo.tools.platform:plugin:2.6.0-SNAPSHOT')
+    implementation platform('run.halo.tools.platform:plugin:2.8.0-SNAPSHOT')
+    implementation 'com.vladsch.flexmark:flexmark-all:0.64.8'
+    implementation 'com.maxmind.geoip2:geoip2:4.0.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.7'
+
     compileOnly 'run.halo.app:api'
 
     testImplementation 'run.halo.app:api'
@@ -27,15 +31,7 @@ test {
     useJUnitPlatform()
 }
 
-node {
-    nodeProjectDir = file("${project.projectDir}/console")
-}
 
-task buildFrontend(type: PnpmTask) {
-    args = ['build']
-}
-
-build {
-    // build frontend before build
-    tasks.getByName('compileJava').dependsOn('buildFrontend')
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
