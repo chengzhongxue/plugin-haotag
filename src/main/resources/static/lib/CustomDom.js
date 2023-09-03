@@ -273,7 +273,7 @@ function extractHeight(occupied, width, height) {
                         bvid: this.getAttribute("bvid"),
                         page: +(this.getAttribute("page") || "1"),
                         width: this.getAttribute("width") || "100%",
-                        height: this.getAttribute("height") || "500px",
+                        height: this.getAttribute("height") || "500",
                     };
                     this.render();
                 }
