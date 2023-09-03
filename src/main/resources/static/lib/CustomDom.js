@@ -246,7 +246,7 @@ function extractHeight(occupied, width, height) {
 
         // 小标记
         customElements.define(
-            "tool-sign",
+            "hao-sign",
             class SignDom extends HTMLElement {
                 constructor() {
                     super();
